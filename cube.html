@@ -7,35 +7,49 @@
 		body { margin: 0; padding: 0; font-size: 0; }
 		canvas { width: 100%; height: 100%; }
 	</style>
-</head>
+</head> //Lo anterior sirvió para establecer cada apartado del codigo html, el tamaño de letra, el margen del cuerpo, etc
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-	var WIDTH = window.innerWidth;
-	var HEIGHT = window.innerHeight;
-
-	var renderer = new THREE.WebGLRenderer({antialias:true});
-	renderer.setSize(WIDTH, HEIGHT);
-	renderer.setClearColor(0xDDDDDD, 1);
+	var WIDTH = window.innerWidth; //Variable para especificar el ancho del canvas, en este caso, se declara que se adapte a la ventana del navegador que usemos
+	var HEIGHT = window.innerHeight; //Variable para especificar el alto del canvas, en este caso, se declara que se adapte a la ventana del navegador que usemos
+	
+	//El Renderizador (que lo muestra en un navegador), en este caso WebGL
+	var renderer = new THREE.WebGLRenderer({antialias:true}); //El antialias sirve para suavizar las lineas de las figuras
+	renderer.setSize(WIDTH, HEIGHT); //Sirve para establecer el tamaño de la pagina segun convenga
+	renderer.setClearColor(0xDDDDDD, 1); //Cambia el color del fondo
 	document.body.appendChild(renderer.domElement);
 
-	var scene = new THREE.Scene();
 
-	var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT);
-	camera.position.z = 50;
-	scene.add(camera);
+	var scene = new THREE.Scene(); //Es la escena, donde se colocan los objetos 
 
-	var boxGeometry = new THREE.BoxGeometry(10, 10, 10);
-	var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
-	var cube = new THREE.Mesh(boxGeometry, basicMaterial);
-	scene.add(cube);
-	cube.rotation.set(0.4, 0.2, 0);
 
+	//Aqui va la camara, que visualiza el trabajo
+	var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT); //El primer valor es el campo de vision (70) y el segundo 
+								//valor, la relación de aspecto de la pantalla (en este caso, 
+								//para que se adecue a la ventana del navegador)
+	camera.position.z = 50; //Distancia entre la camara y el centro de la escena en el eje z
+	scene.add(camera); //Añade el objeto camara a la escena
+
+
+
+	var boxGeometry = new THREE.BoxGeometry(10, 10, 10); //Definicion del cubo con ancho, largo y volúmen
+	var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD}); //Se aplica el material del cubo, es decir, lo que lo recubre
+										//el objeto, que en este caso, el cubo solo sera conformado por
+										//un color azul liso
+	var cube = new THREE.Mesh(boxGeometry, basicMaterial); //Es la malla, que toma la forma y agrega el material especificando a cada cara
+	scene.add(cube); //Añade el cubo a la escena
+	cube.rotation.set(0.4, 0.2, 0); //Línea que sirve para rotar de manera fija a la figura que hemos puesto, en este caso, el cubo
+
+
+	//Funcion para renderizar
 	function render() {
-		requestAnimationFrame(render);
-		renderer.render(scene, camera);
+		requestAnimationFrame(render); // Sirve para que renderice por primera vez y siga con un ciclo indefinidamente
+		renderer.render(scene, camera); //Renderiza la escena y la cámara
 	}
-	render();
+	render();//Inicia la función render()
+
+
 </script>
 </body>
 </html>
